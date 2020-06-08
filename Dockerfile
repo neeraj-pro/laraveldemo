@@ -3,8 +3,8 @@ FROM alpine:edge
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
 RUN set -x ; \
-    addgroup -g 82 -S www-data ; \
-    adduser -u 82 -D -S -G www-data www-data && exit 0 ; exit 1
+    addgroup -g 1000 -S www-data ; \
+    adduser -u 1000 -D -S -G www-data www-data && exit 0 ; exit 1
 
 RUN apk update \
     && apk upgrade \
@@ -52,7 +52,8 @@ RUN apk update \
     && curl -sS https://getcomposer.org/installer | php7 -- --install-dir=/usr/local/bin --filename=composer && \
     mkdir /app && chmod a+rwx /app && \
     chmod a+rwx /run/apache2/ && \
-    mkdir /.composer && chmod a+rwx /.composer
+    mkdir /.composer && chmod a+rwx /.composer && \
+    mkdir -p /.config/psysh && chmod a+rwx /.config/psysh
 
 # Apache config
 ADD httpd.conf /etc/apache2/httpd.conf

@@ -32,6 +32,12 @@ fi
 
 ulimit -c 0
 
+echo "Sleeping for 5 seconds"
+sleep 10
+
+echo "Running Laravel migrations"
+cd /app && php artisan migrate
+
 echo "[${STAMP}] Starting daemon..."
 # run apache httpd daemon
 httpd -D FOREGROUND
